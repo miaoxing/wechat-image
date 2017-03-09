@@ -1,0 +1,141 @@
+.wx-upload-image {
+  width: 100%;
+}
+
+.wx-upload-image-header {
+  margin-bottom: 8px;
+}
+
+.wx-upload-image-cells {
+  list-style: none;
+  margin-left: -25px;
+}
+
+.wx-upload-image-cell {
+  width: 80px;
+  height: 80px;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  margin-left: 8px;
+  margin-right: 0px;
+  float: left;
+  background: no-repeat center center;
+  background-size: cover;
+}
+
+.wx-upload-image-cell .delete-image {
+  position: relative;
+  left: 70px;
+  top: -14px;
+  color: red;
+  font-size: 20px;
+}
+
+.img-close {
+  position: relative;
+  display:inline-block;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  border-radius:8px;
+  background:red;
+  opacity:0.9;
+}
+
+.img-close:hover{
+  cursor:pointer;
+  opacity:1;
+}
+
+.img-close::before, .img-close::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 10%;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.img-close::before {
+  transform: rotate(45deg);
+}
+
+.img-close::after {
+  transform: rotate(-45deg);
+}
+
+.wx-upload-image-select-wrp {
+  border: 1px dashed rgb(170, 170, 170);
+  border-radius: 4px;
+  margin: 8px;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: inline-block;
+  padding: 4px 12px;
+  overflow: hidden;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+}
+
+.wx-upload-image-select-wrp:before {
+  width: 2px;
+  height: 39.5px;
+}
+
+.wx-upload-image-select-wrp:after {
+  width: 39.5px;
+  height: 2px;
+}
+
+.wx-upload-image-select-wrp:before, .wx-upload-image-select-wrp:after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #D9D9D9;
+}
+
+/* 允许在表单中显示上传框 */
+.form-group .wx-upload-image {
+  padding-right: 15px;
+  padding-top: 10px;
+}
+
+.wx-upload-image-add {
+  float: left;
+}
+
+/* 图片的选项 */
+.img-option-text {
+  position: absolute;
+  display: inline-block;
+  width: 80px;
+  height: 20px;
+  line-height: 20px;
+  color: #000;
+  font-size: 12px;
+  text-align: center;
+  margin-left: -16px;
+  margin-top: 60px;
+  background-color: #fff;
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+
+.img-select {
+  display: block;
+  width: 80px;
+  margin-left: 8px;
+  margin-bottom: 16px;
+  box-shadow: none;
+  border-radius: 4px;
+}
