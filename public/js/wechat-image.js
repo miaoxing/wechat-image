@@ -117,7 +117,7 @@ define(function () {
           self.uploadServerId(self, res.serverId, localIds);
         },
         error: function () {
-          $.alert("上传失败！");
+          $.alert('上传失败！');
         }
       });
     },
@@ -131,7 +131,7 @@ define(function () {
         type: 'post',
         dataType: 'json',
         data: {
-          'serverId': serverId
+          serverId: serverId
         },
         success: function (ret) {
           if (ret.code == 1) {
@@ -148,7 +148,7 @@ define(function () {
           }
         },
         error: function () {
-          $.alert("上传失败，请重试");
+          $.alert('上传失败，请重试');
         }
       });
     }
