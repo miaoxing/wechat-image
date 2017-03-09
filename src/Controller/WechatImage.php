@@ -6,30 +6,31 @@ class WechatImage extends \miaoxing\plugin\BaseController
 {
     public function getWechatImageAction($req)
     {
-        $validator = wei()->validate(array(
+        $validator = wei()->validate([
             // 待验证的数据
             'data' => [
-                'serverId' => $req['serverId']
+                'serverId' => $req['serverId'],
             ],
             // 验证规则数组
-            'rules' => array(
+            'rules' => [
                 'serverId' => [
-                    'required' => true
+                    'required' => true,
                 ],
-            ),
+            ],
             // 数据项名称的数组,用于错误信息提示
-            'names' => array(
-                'serverId' => '服务Id'
-            ),
+            'names' => [
+                'serverId' => '服务Id',
+            ],
             'messages' => [
                 'serverId' => [
                     'required' => '请输入服务Id',
-                ]
-            ]
-        ));
+                ],
+            ],
+        ]);
         if (!$validator->isValid()) {
             $firstMessage = $validator->getFirstMessage();
-            return json_encode(array("code" => -7, "message" => $firstMessage));
+
+            return json_encode(['code' => -7, 'message' => $firstMessage]);
         }
 
         $account = wei()->wechatAccount->getCurrentAccount();
@@ -58,30 +59,31 @@ class WechatImage extends \miaoxing\plugin\BaseController
 
     public function getWechatCorpImageAction($req)
     {
-        $validator = wei()->validate(array(
+        $validator = wei()->validate([
             // 待验证的数据
             'data' => [
-                'serverId' => $req['serverId']
+                'serverId' => $req['serverId'],
             ],
             // 验证规则数组
-            'rules' => array(
+            'rules' => [
                 'serverId' => [
-                    'required' => true
+                    'required' => true,
                 ],
-            ),
+            ],
             // 数据项名称的数组,用于错误信息提示
-            'names' => array(
-                'serverId' => '服务Id'
-            ),
+            'names' => [
+                'serverId' => '服务Id',
+            ],
             'messages' => [
                 'serverId' => [
                     'required' => '请输入服务Id',
-                ]
-            ]
-        ));
+                ],
+            ],
+        ]);
         if (!$validator->isValid()) {
             $firstMessage = $validator->getFirstMessage();
-            return json_encode(array("code" => -7, "message" => $firstMessage));
+
+            return json_encode(['code' => -7, 'message' => $firstMessage]);
         }
 
         $account = wei()->wechatCorpAccount->getCurrentAccount();
