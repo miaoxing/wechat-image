@@ -11,10 +11,6 @@
     <div class="wx-upload-image-body js-upload">
       <ul class="wx-upload-image-cells js-upload-cells">
         <li class="wx-upload-image-add">
-          <div class="wx-upload-image-select-wrp js-select">
-            <div class="wx-upload-image-select"></div>
-          </div>
-
           <% if(hasOption) { %>
           <select class="js-upload-image-option img-select">
             <% for(var i in options) {%>
@@ -22,6 +18,9 @@
             <% } %>
           </select>
           <% } %>
+          <div class="wx-upload-image-select-wrp js-select">
+            <div class="wx-upload-image-select"></div>
+          </div>
         </li>
       </ul>
     </div>
