@@ -2,7 +2,7 @@
 
 namespace Miaoxing\WechatImage\Controller;
 
-class WechatImage extends \miaoxing\plugin\BaseController
+class WechatImage extends \Miaoxing\Plugin\BaseController
 {
     public function getWechatImageAction($req)
     {
