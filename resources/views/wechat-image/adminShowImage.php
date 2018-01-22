@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="<?= $asset('comps/lightbox2/dist/css/lightbox.min.css') ?>">
 <?= $block->end() ?>
 
+<!-- htmllint preset="none" -->
+<!-- htmllint tag-name-match="false" -->
 <div class="form-group">
   <label class="col-sm-2 control-label">图片</label>
 

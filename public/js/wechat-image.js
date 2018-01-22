@@ -1,7 +1,7 @@
 define(function () {
 
   var Images = function () {
-
+    // do nothing.
   };
 
   $.extend(Images.prototype, {
@@ -38,27 +38,27 @@ define(function () {
     init: function (options) {
       $.extend(this, options);
 
-      var self = this;
-      self.wx.load(function () {
-        self.$container.on('click', '.js-select', function () {
-          self.wx.chooseImage({
+      var that = this;
+      that.wx.load(function () {
+        that.$container.on('click', '.js-select', function () {
+          that.wx.chooseImage({
             success: function (res) {
-              self.syncUpload(self, res.localIds);
+              that.syncUpload(that, res.localIds);
             }
           });
         });
 
-        self.$container.on('click', '.js-image-cell', function () {
+        that.$container.on('click', '.js-image-cell', function () {
           var urls = $(this).closest('.js-upload-cells').find('input').map(function () {
             return this.value;
           }).get();
-          self.wx.previewImage({
+          that.wx.previewImage({
             current: $(this).find('input').val(),
             urls: urls
           });
         });
 
-        self.$container.on('click', '.js-delete', function (e) {
+        that.$container.on('click', '.js-delete', function (e) {
           var item = $(this).closest('.js-image-cell');
           $.confirm('确定删除该图片吗？', function (result) {
             if (result) {
@@ -70,8 +70,8 @@ define(function () {
       });
 
       // 渲染已有的图片
-      $.each(self.images, function (i, image) {
-        self.htmlAppend(self, image, i);
+      $.each(that.images, function (i, image) {
+        that.htmlAppend(that, image, i);
       });
     },
 
@@ -134,7 +134,7 @@ define(function () {
           serverId: serverId
         },
         success: function (ret) {
-          if (ret.code == 1) {
+          if (ret.code === 1) {
             self.htmlAppend(self, ret.url);
 
             if (localIds.length > 0) {
