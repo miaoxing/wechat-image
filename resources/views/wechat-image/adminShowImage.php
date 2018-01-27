@@ -1,4 +1,4 @@
-<?= $block('css') ?>
+<?= $block->css() ?>
 <link rel="stylesheet" href="<?= $asset('comps/lightbox2/dist/css/lightbox.min.css') ?>">
 <?= $block->end() ?>
 
@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   require(['comps/lightbox2/dist/js/lightbox.min'], function () {});
 </script>
