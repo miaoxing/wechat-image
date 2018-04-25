@@ -4,6 +4,10 @@ namespace Miaoxing\WechatImage\Controller;
 
 class WechatImage extends \Miaoxing\Plugin\BaseController
 {
+    protected $guestPages = [
+        'wechatImage'
+    ];
+
     public function getWechatImageAction($req)
     {
         $validator = wei()->validate([
