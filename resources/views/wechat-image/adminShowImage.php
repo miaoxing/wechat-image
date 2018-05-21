@@ -25,6 +25,9 @@
           </a>
         </span>
         <% } %>
+        <% if (images.length === 0) { %>
+          <p class="form-control-static">-</p>
+        <% } %>
       <% } %>
 
     </div>
