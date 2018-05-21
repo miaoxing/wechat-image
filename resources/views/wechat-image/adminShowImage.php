@@ -9,11 +9,11 @@
 
   <div class="col-sm-10">
     <div class="media user-media">
-      <% if(typeof config.images != 'undefined') { %>
+      <% if(config && typeof config.images != 'undefined') { %>
         <% for (var i in config.images) { %>
         <span class="pull-left">
           <a class="image-link" href="<%= config.images[i] %>" data-lightbox="pic-set-<%= id %>">
-            <img class="media-object image" src="<%= config.images[i] %>">
+            <img class="image" style="width: 48px" src="<%= config.images[i] %>">
           </a>
         </span>
         <% } %>
@@ -21,7 +21,7 @@
         <% for (var i in images) { %>
         <span class="pull-left">
           <a class="image-link" href="<%= images[i] %>" data-lightbox="pic-set-<%= id %>">
-            <img class="media-object image" src="<%= images[i] %>">
+            <img class="image" style="width: 48px" src="<%= images[i] %>">
           </a>
         </span>
         <% } %>
