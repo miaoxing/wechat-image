@@ -5,7 +5,7 @@ namespace Miaoxing\WechatImage\Controller;
 class WechatImage extends \Miaoxing\Plugin\BaseController
 {
     protected $guestPages = [
-        'wechatImage'
+        'wechatImage',
     ];
 
     public function getWechatImageAction($req)
@@ -44,7 +44,7 @@ class WechatImage extends \Miaoxing\Plugin\BaseController
         // 如果指定的文件上传服务存在,使用相应服务上传
         $fileService = null;
         if ($req['fileService']) {
-            $serviceName = $req['fileService']. '.file';
+            $serviceName = $req['fileService'] . '.file';
             if ($this->wei->getConfig($serviceName) !== false) {
                 $fileService = $this->wei->get($serviceName);
             }
@@ -53,7 +53,22 @@ class WechatImage extends \Miaoxing\Plugin\BaseController
             $fileService = wei()->file;
         }
 
-        $ret = $fileService->upload($url, 'jpg');
+        $exts = [];
+        if ($req['checkOrigCreatedAt']) {
+            if ($req['sourceType'] == 'camera') {
+                // 拍照相片则认为是当前时间
+                $exts['origCreatedAt'] = wei()->time();
+            } else {
+                $url = wei()->file->download($url);
+                $exif = exif_read_data($url, 'IFD0');
+                if (!isset($exif['DateTimeOriginal']) || !$exif['DateTimeOriginal']) {
+                    return $this->err('获取不到文件的拍摄时间,请检查再试');
+                }
+                $exts['origCreatedAt'] = date('Y-m-d H:i:s', strtotime($exif['DateTimeOriginal']));
+            }
+        }
+
+        $ret = $fileService->upload($url, 'jpg', '', $exts);
         if ($ret['code'] !== 1) {
             wei()->logger->alert('下载图片失败', $ret);
         }

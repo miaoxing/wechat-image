@@ -35,17 +35,19 @@ define(function () {
      */
     max: 10,
 
+    chooseImageOptions: {},
+
     init: function (options) {
       $.extend(this, options);
 
       var that = this;
       that.wx.load(function () {
         that.$container.on('click', '.js-select', function () {
-          that.wx.chooseImage({
+          that.wx.chooseImage($.extend({}, this.chooseImageOptions, {
             success: function (res) {
-              that.syncUpload(that, res.localIds);
+              that.syncUpload(that, res.localIds, res.sourceType);
             }
-          });
+          }));
         });
 
         that.$container.on('click', '.js-image-cell', function () {
@@ -102,7 +104,7 @@ define(function () {
     /**
      * 同步上传
      */
-    syncUpload: function (self, localIds) {
+    syncUpload: function (self, localIds, sourceType) {
       // 上传之前检查是否超出数量
       if (self.$container.find('.js-image-cell').length >= self.max) {
         $.alert('上传的图片不能超过' + self.max + '张');
@@ -114,7 +116,7 @@ define(function () {
         localId: localId,
         isShowProgressTips: 1,
         success: function (res) {
-          self.uploadServerId(self, res.serverId, localIds);
+          self.uploadServerId(self, res.serverId, localIds, sourceType);
         },
         error: function () {
           $.alert('上传失败！');
@@ -123,22 +125,23 @@ define(function () {
     },
 
     /**
-     * 上传图片到腾讯服务器并
+     * 上传图片到腾讯服务器
      */
-    uploadServerId: function (self, serverId, localIds) {
+    uploadServerId: function (self, serverId, localIds, sourceType) {
       $.ajax({
         url: self.uploadUrl,
         type: 'post',
         dataType: 'json',
         data: {
-          serverId: serverId
+          serverId: serverId,
+          sourceType: sourceType
         },
         success: function (ret) {
           if (ret.code === 1) {
             self.htmlAppend(self, ret.url);
 
             if (localIds.length > 0) {
-              self.syncUpload(self, localIds);
+              self.syncUpload(self, localIds, sourceType);
             } else {
               $.msg(ret);
             }
