@@ -60,11 +60,14 @@ class WechatImage extends \Miaoxing\Plugin\BaseController
                 $exts['origCreatedAt'] = wei()->time();
             } else {
                 $url = wei()->file->download($url);
-                $this->logger->info('download', $url);
+
                 try {
                     $exif = exif_read_data($url, 'IFD0');
                 } catch (\Exception $e) {
-                    $this->logger->info($e);
+                    $this->logger->info('读取EXIF失败', [
+                        'url' => $url,
+                        'e' => $e->getMessage(),
+                    ]);
                     return $this->err('获取不到文件的拍摄时间,请检查再试');
                 }
 
