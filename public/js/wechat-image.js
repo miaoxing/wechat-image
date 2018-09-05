@@ -43,7 +43,7 @@ define(function () {
       var that = this;
       that.wx.load(function () {
         that.$container.on('click', '.js-select', function () {
-          that.wx.chooseImage($.extend({}, this.chooseImageOptions, {
+          that.wx.chooseImage($.extend({}, that.chooseImageOptions, {
             success: function (res) {
               that.syncUpload(that, res.localIds, res.sourceType);
             }

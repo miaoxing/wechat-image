@@ -68,7 +68,7 @@ class WechatImage extends \Miaoxing\Plugin\BaseController
                         'url' => $url,
                         'e' => $e->getMessage(),
                     ]);
-                    return $this->err('获取不到文件的拍摄时间,请检查再试');
+                    return $this->err('获取拍摄时间信息失败,请检查再试.');
                 }
 
                 if (!isset($exif['DateTimeOriginal']) || !$exif['DateTimeOriginal']) {
