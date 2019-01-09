@@ -54,27 +54,10 @@ class WechatImage extends \Miaoxing\Plugin\BaseController
         }
 
         $exts = [];
-        if ($req['checkOrigCreatedAt']) {
-            if ($req['sourceType'] == 'camera') {
-                // 拍照相片则认为是当前时间
-                $exts['origCreatedAt'] = wei()->time();
-            } else {
-                $url = wei()->file->download($url);
-
-                try {
-                    $exif = exif_read_data($url, 'IFD0');
-                } catch (\Exception $e) {
-                    $this->logger->info('读取EXIF失败', [
-                        'url' => $url,
-                        'e' => $e->getMessage(),
-                    ]);
-                    return $this->err('获取拍摄时间信息失败,请检查再试.');
-                }
-
-                if (!isset($exif['DateTimeOriginal']) || !$exif['DateTimeOriginal']) {
-                    return $this->err('获取不到文件的拍摄时间,请检查再试');
-                }
-                $exts['origCreatedAt'] = date('Y-m-d H:i:s', strtotime($exif['DateTimeOriginal']));
+        if ($req['readOrigCreatedAt']) {
+            $ret = $this->readOrigCreatedAt($req, $url, $exts);
+            if ($ret['code'] === 1) {
+                $exts['origCreatedAt'] = $ret['origCreatedAt'];
             }
         }
 
@@ -84,6 +67,28 @@ class WechatImage extends \Miaoxing\Plugin\BaseController
         }
 
         return $this->ret($ret);
+    }
+
+    protected function readOrigCreatedAt($req, $url, $exts)
+    {
+        if ($req['sourceType'] == 'camera') {
+            // 拍照相片则认为是当前时间
+            return $this->suc(['origCreatedAt' => wei()->time()]);
+        }
+
+        $url = wei()->file->download($url);
+        try {
+            $exif = exif_read_data($url, 'IFD0');
+        } catch (\Exception $e) {
+            $this->logger->info('读取EXIF失败', ['url' => $url, 'e' => $e->getMessage()]);
+            return $this->err('获取拍摄时间信息失败,请检查再试');
+        }
+
+        if (!isset($exif['DateTimeOriginal']) || !$exif['DateTimeOriginal']) {
+            return $this->err('获取不到文件的拍摄时间,请检查再试');
+        }
+
+        return $this->suc(['origCreatedAt' => date('Y-m-d H:i:s', strtotime($exif['DateTimeOriginal']))]);
     }
 
     public function getWechatCorpImageAction($req)
